@@ -1,4 +1,5 @@
 import { useState,useEffect  } from "react";
+import axios from "axios";
 
 function IndexCardAppComponent(){
 
@@ -40,28 +41,17 @@ function IndexCardAppComponent(){
         retrieveAllIndexCards();
     }, []);
     
+    function successfullResponse(data, setIndexCardList){
+        setIndexCardList(data);
+    
+        console.log(indexCardList);
+    }
 
     function retrieveAllIndexCards(){
         
-        setIndexCardList([
-            {
-                id: 1,
-                languageOne: "Haus",
-                languageTwo: "house"
-            },
-            {
-                id: 2,
-                languageOne: "Flasche",
-                languageTwo: "bottle"
-            },
-            {
-                id: 3,
-                languageOne: "Lampe",
-                languageTwo: "lamp"
-            }
-        ]);
-    
-        console.log(indexCardList);
+        axios.get('http://localhost:8080/indexcard/getAllIndexCard')
+            .then( (response) => successfullResponse(response.data, setIndexCardList) )
+        
     }
 
     function getLanguageTwo(){
