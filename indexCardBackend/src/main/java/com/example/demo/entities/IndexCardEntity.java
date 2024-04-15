@@ -4,31 +4,60 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class IndexCardEntity {
 
+	public Integer getId() {
+		return id;
+	}
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	
-	private String languageOne;
-	private String languageTwo;
+	private String question;
 	
-	public String getLanguageOne() {
-		return languageOne;
+	private String answer;
+	
+	@OneToOne(mappedBy = "id")
+	private CategoryEntity category;
+
+	public String getQuestion() {
+		return question;
 	}
-	public void setLanguageOne(String languageOne) {
-		this.languageOne = languageOne;
+
+	public void setQuestion(String question) {
+		this.question = question;
 	}
-	public String getLanguageTwo() {
-		return languageTwo;
+
+	public String getAnswer() {
+		return answer;
 	}
-	public void setLanguageTwo(String languageTwo) {
-		this.languageTwo = languageTwo;
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
+	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public CategoryEntity getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryEntity category) {
+		this.category = category;
+	}
+	
 	@Override
 	public String toString() {
-		return "IndexCardEntity [id=" + id + ", languageOne=" + languageOne + ", languageTwo=" + languageTwo + "]";
+		return "IndexCardEntity [id=" + id + ", question=" + question + ", answer=" + answer + ", category=" + category
+				+ "]";
 	}
+	
 }
