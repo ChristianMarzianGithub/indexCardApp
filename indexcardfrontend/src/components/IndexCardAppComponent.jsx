@@ -4,21 +4,21 @@ import axios from "axios";
 function IndexCardAppComponent(){
 
     const[startingIndex, setStartingIndex] = useState(0)
-    const[showLanguageTwo, setShowLanguageTwo] = useState(false)
+    const[showAnswer, setShowAnswer] = useState(false)
 
-    function switchShowLanguageTwo(){
-        if(showLanguageTwo){
-            setShowLanguageTwo(false)
+    function switchShowAnswer(){
+        if(showAnswer){
+            setShowAnswer(false)
         }else{
-            setShowLanguageTwo(true)
+            setShowAnswer(true)
         }
     }
 
     function increaseStartingIndex(){
-        if(startingIndex < (indexCardList.length-1) && showLanguageTwo)
+        if(startingIndex < (indexCardList.length-1) && showAnswer)
         setStartingIndex(prevStartingIndex => prevStartingIndex + 1);
 
-        switchShowLanguageTwo()
+        switchShowAnswer()
     }
 
     function decreaseStartingIndex(){
@@ -31,7 +31,7 @@ function IndexCardAppComponent(){
         if(startingIndex > 0){
             setStartingIndex(0);
         }        
-        setShowLanguageTwo(false)
+        setShowAnswer(false)
     }
 
     const [indexCardList, setIndexCardList] = useState([]);
@@ -55,10 +55,10 @@ function IndexCardAppComponent(){
     }
 
     function getLanguageTwo(){
-        if(showLanguageTwo){
+        if(showAnswer){
             return (
                 <div>
-                    <p>{indexCardList.length > 0 && indexCardList[startingIndex].languageTwo}</p>
+                    <p>{indexCardList.length > 0 && indexCardList[startingIndex].answer}</p>
                 </div>
             )
         }
@@ -71,7 +71,7 @@ function IndexCardAppComponent(){
             <br/>
             <br/>
             <button onClick={backToStart}>zum Anfang</button><button onClick={decreaseStartingIndex}>zurück</button><button onClick={increaseStartingIndex}>weiter</button>
-            <p>{indexCardList.length > 0 && indexCardList[startingIndex].languageOne}</p>
+            <p>{indexCardList.length > 0 && indexCardList[startingIndex].question}</p>
                 <p>---------------</p>
                 {getLanguageTwo()}
                 
