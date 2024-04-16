@@ -1,0 +1,17 @@
+CREATE TABLE `category` (
+  `id` int NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+
+CREATE TABLE `indexcard` (
+  `id` int NOT NULL,
+  `answer` varchar(255) DEFAULT NULL,
+  `question` varchar(255) DEFAULT NULL,
+  `category_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKpju6tq7ojtvlsvhmyi5cmbpdy` (`category_id`),
+  CONSTRAINT `FKpju6tq7ojtvlsvhmyi5cmbpdy` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
