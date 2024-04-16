@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -13,7 +15,6 @@ public class IndexCardEntity {
 		return id;
 	}
 
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
@@ -22,7 +23,7 @@ public class IndexCardEntity {
 	
 	private String answer;
 	
-	@OneToOne(mappedBy = "id")
+	@ManyToOne
 	private CategoryEntity category;
 
 	public String getQuestion() {
@@ -40,11 +41,6 @@ public class IndexCardEntity {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public CategoryEntity getCategory() {
 		return category;
@@ -53,11 +49,14 @@ public class IndexCardEntity {
 	public void setCategory(CategoryEntity category) {
 		this.category = category;
 	}
-	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "IndexCardEntity [id=" + id + ", question=" + question + ", answer=" + answer + ", category=" + category
 				+ "]";
 	}
-	
 }
