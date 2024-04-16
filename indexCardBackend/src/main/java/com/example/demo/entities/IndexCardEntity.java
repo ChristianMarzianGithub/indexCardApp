@@ -13,10 +13,6 @@ import jakarta.persistence.Table;
 @Table(name="INDEXCARD")
 public class IndexCardEntity {
 
-	public Integer getId() {
-		return id;
-	}
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
@@ -55,7 +51,9 @@ public class IndexCardEntity {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	public Integer getId() {
+		return id;
+	}
 	@Override
 	public String toString() {
 		return "IndexCardEntity [id=" + id + ", question=" + question + ", answer=" + answer + ", category=" + category
