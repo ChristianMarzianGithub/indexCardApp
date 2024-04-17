@@ -19,7 +19,7 @@ function IndexCardAppComponent(){
     }
 
     function increaseStartingIndex(){
-        if(startingIndex < (indexCardList.length-1) && showAnswer)
+        if(startingIndex < (filteredIndexCardList.length-1) && showAnswer)
         setStartingIndex(prevStartingIndex => prevStartingIndex + 1);
 
         switchShowAnswer()
@@ -49,21 +49,18 @@ function IndexCardAppComponent(){
         retrieveAllCategories();
     }, []);
     
-    function successfullResponseIndexCards(data, setIndexCardList){
-        setIndexCardList(data);
-    
-        console.log(indexCardList);
+    function successfullResponseIndexCards(data, setIndexCardList,setFilteredIndexCardList){
+        setIndexCardList(data)
+        setFilteredIndexCardList(data)
     }
 
     function successfullResponseCategories(data, setCategoryList){
-        setCategoryList(data);
-    
-        console.log(categoryList);
+        setCategoryList(data)
     }
 
     function retrieveAllIndexCards(){
         axios.get('http://localhost:8080/indexcard/getAllIndexCard')
-            .then( (response) => successfullResponseIndexCards(response.data, setIndexCardList) )
+            .then( (response) => successfullResponseIndexCards(response.data, setIndexCardList,setFilteredIndexCardList) )
     }
 
     function retrieveAllCategories(){
@@ -76,23 +73,22 @@ function IndexCardAppComponent(){
         if(showAnswer){
             return (
                 <div>
-                    <p>{indexCardList.length > 0 && indexCardList[startingIndex].answer}</p>
+                    <p>{filteredIndexCardList.length > 0 && filteredIndexCardList[startingIndex].answer}</p>
                 </div>
             )
         }
     }
 
     const filterIndexCardList = (event) => {
-
-        setFilteredIndexCardList(indexCardList.filter(item => item.category.id ===  parseInt(event.target.value) ))
-        console.log(filterIndexCardList)
+        const category = event.target.value;
+        setSelectedCategory(category);
+        setFilteredIndexCardList(indexCardList.filter(item => item.category.id == event.target.value))        
     }
 
     return(
         <div>
             <h1>Karteikarten</h1>
             <br/>
-            <button onClick={retrieveAllCategories}>retrieveCategories</button>
             <br/>
             <select onChange={filterIndexCardList} value={selectedCategory}>
             {categoryList.map(item => (
@@ -101,7 +97,7 @@ function IndexCardAppComponent(){
             </select>
             <br/>
             <button onClick={backToStart}>zum Anfang</button><button onClick={decreaseStartingIndex}>zurück</button><button onClick={increaseStartingIndex}>weiter</button>
-            <p>{indexCardList.length > 0 && indexCardList[startingIndex].question}</p>
+            <p>{filteredIndexCardList.length > 0 && filteredIndexCardList[startingIndex].question}</p>
                 <p>---------------</p>
                 {getLanguageTwo()}
         </div>
